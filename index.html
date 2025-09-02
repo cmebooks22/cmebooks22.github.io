@@ -88,6 +88,51 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
+        .navigation {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 20;
+            opacity: 0;
+            animation: fadeInNav 1s ease-out 6.5s forwards;
+        }
+
+        @keyframes fadeInNav {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .nav-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(15px);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .nav-button:hover {
+            background: rgba(255,255,255,0.9);
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border-color: white;
+        }
+
+        .nav-button.active {
+            background: rgba(255,255,255,0.3);
+            border-color: white;
+        }
+
         .button {
             display: inline-block;
             padding: 12px 30px;
@@ -139,6 +184,12 @@
     </style>
 </head>
 <body>
+    <div class="navigation">
+        <a href="#home" class="nav-button active">Home</a>
+        <a href="#bookstore" class="nav-button">Book Store</a>
+        <a href="#bio" class="nav-button">Bio</a>
+    </div>
+
     <div class="particles" id="particles"></div>
     
     <div class="wheelchair">
@@ -204,6 +255,27 @@
 
         // Initialize particles when page loads
         window.addEventListener('load', createParticles);
+
+        // Navigation functionality
+        const navButtons = document.querySelectorAll('.nav-button');
+        navButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all buttons
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Here you would typically navigate to different sections
+                // For now, we'll just show which section was clicked
+                const section = this.textContent.toLowerCase().replace(' ', '');
+                console.log(`Navigating to: ${section}`);
+                
+                // You can add section switching logic here
+            });
+        });
 
         // Optional: Replay animation on click
         document.addEventListener('click', function() {
