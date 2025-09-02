@@ -1,1 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Wheelchair Animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 10;
+        }
+
+        .wheelchair {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            z-index: 5;
+            opacity: 0;
+            transform: scale(0.5) translateX(-200vw);
+            animation: wheelchairJourney 7s ease-in-out forwards;
+        }
+
+        @keyframes wheelchairJourney {
+            0% {
+                opacity: 1;
+                transform: scale(0.5) translateX(-200vw) translateY(0);
+            }
+            25% {
+                transform: scale(1.2) translateX(-10px) translateY(0);
+            }
+            50% {
+                transform: scale(1.5) translateX(0) translateY(0);
+            }
+            75% {
+                transform: scale(1.5) translateX(0) translateY(0);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(0.8) translateX(300vw) translateY(-20px);
+            }
+        }
+
+        .main-content {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInContent 1s ease-out 6s forwards;
+        }
+
+        @keyframes fadeInContent {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 2px solid white;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .button:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="wheelchair">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Wheelchair wheels -->
+            <circle cx="25" cy="70" r="15" stroke="#2c3e50" stroke-width="3" fill="none"/>
+            <circle cx="75" cy="70" r="15" stroke="#2c3e50" stroke-width="3" fill="none"/>
+            
+            <!-- Wheel spokes -->
+            <line x1="25" y1="55" x2="25" y2="85" stroke="#2c3e50" stroke-width="2"/>
+            <line x1="10" y1="70" x2="40" y2="70" stroke="#2c3e50" stroke-width="2"/>
+            <line x1="75" y1="55" x2="75" y2="85" stroke="#2c3e50" stroke-width="2"/>
+            <line x1="60" y1="70" x2="90" y2="70" stroke="#2c3e50" stroke-width="2"/>
+            
+            <!-- Chair frame -->
+            <rect x="30" y="45" width="35" height="25" stroke="#2c3e50" stroke-width="3" fill="#ecf0f1" rx="2"/>
+            
+            <!-- Backrest -->
+            <rect x="30" y="25" width="35" height="25" stroke="#2c3e50" stroke-width="3" fill="#ecf0f1" rx="2"/>
+            
+            <!-- Armrests -->
+            <rect x="25" y="45" width="8" height="15" stroke="#2c3e50" stroke-width="2" fill="#bdc3c7" rx="1"/>
+            <rect x="67" y="45" width="8" height="15" stroke="#2c3e50" stroke-width="2" fill="#bdc3c7" rx="1"/>
+            
+            <!-- Push handles -->
+            <line x1="32" y1="25" x2="32" y2="15" stroke="#2c3e50" stroke-width="3"/>
+            <line x1="63" y1="25" x2="63" y2="15" stroke="#2c3e50" stroke-width="3"/>
+            <circle cx="32" cy="15" r="3" fill="#e74c3c"/>
+            <circle cx="63" cy="15" r="3" fill="#e74c3c"/>
+            
+            <!-- Footrest -->
+            <rect x="35" y="80" width="25" height="5" stroke="#2c3e50" stroke-width="2" fill="#95a5a6" rx="1"/>
+            
+            <!-- Connection bars -->
+            <line x1="40" y1="70" x2="60" y2="70" stroke="#2c3e50" stroke-width="2"/>
+            <line x1="47" y1="70" x2="47" y2="80" stroke="#2c3e50" stroke-width="2"/>
+        </svg>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <h1>Welcome</h1>
+            <p>Experience accessibility and innovation coming together. Our mission is to create inclusive spaces and solutions for everyone.</p>
+            <a href="#" class="button">Learn More</a>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (3 + Math.random() * 6) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles when page loads
+        window.addEventListener('load', createParticles);
+
+        // Optional: Replay animation on click
+        document.addEventListener('click', function() {
+            const wheelchair = document.querySelector('.wheelchair');
+            wheelchair.style.animation = 'none';
+            wheelchair.offsetHeight; // Trigger reflow
+            wheelchair.style.animation = 'wheelchairJourney 7s ease-in-out forwards';
+        });
+    </script>
+</body>
+</html>
