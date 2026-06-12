@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice on Wheels</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000000;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            color: #4a90e2;
+            position: relative;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        .wheelchair {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            z-index: 5;
+            opacity: 0;
+            transform: scale(0.5) translateX(-200vw);
+            animation: wheelchairJourney 7s ease-in-out forwards;
+        }
+
+        @keyframes wheelchairJourney {
+            0% {
+                opacity: 1;
+                transform: scale(0.5) translateX(-200vw) translateY(0);
+            }
+            25% {
+                transform: scale(1.2) translateX(-10px) translateY(0);
+            }
+            50% {
+                transform: scale(1.5) translateX(0) translateY(0);
+            }
+            75% {
+                transform: scale(1.5) translateX(0) translateY(0);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(0.8) translateX(300vw) translateY(-20px);
+            }
+        }
+
+        .main-content {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInContent 1s ease-out 6s forwards;
+        }
+
+        @keyframes fadeInContent {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1rem;
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .navigation {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            z-index: 20;
+            opacity: 0;
+            animation: fadeInNav 1s ease-out 6.5s forwards;
+            padding: 10px;
+            justify-content: center;
+        }
+
+        @keyframes fadeInNav {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .nav-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(15px);
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            background: rgba(255,255,255,0.25);
+            border-color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-button.active {
+            background: rgba(255,255,255,0.3);
+            border-color: white;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 25px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 40px;
+            border: 2px solid white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .button:hover {
+            background: white;
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .wheelchair {
+                width: 50px;
+                height: 50px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 0.95rem;
+            }
+
+            .navigation {
+                top: 15px;
+                gap: 10px;
+            }
+
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+
+            .button {
+                padding: 8px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+
+            .wheelchair {
+                width: 40px;
+                height: 40px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 0.8rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+                max-width: 90vw;
+                margin-bottom: 1.5rem;
+            }
+
+            .navigation {
+                top: 10px;
+                gap: 8px;
+                padding: 5px;
+            }
+
+            .nav-button {
+                padding: 7px 12px;
+                font-size: 0.8rem;
+            }
+
+            .button {
+                padding: 7px 15px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navigation">
+        <a href="#home" class="nav-button active">Home</a>
+        <a href="#bookstore" class="nav-button">Book Store</a>
+        <a href="#bio" class="nav-button">Bio</a>
+    </div>
+    
+    <div class="wheelchair">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="25" cy="70" r="15" stroke="#2c3e50" stroke-width="3" fill="none"/>
+            <circle cx="75" cy="70" r="15" stroke="#2c3e50" stroke-width="3" fill="none"/>
+            <line x1="25" y1="55" x2="25" y2="85" stroke="#2c3e50" stroke-width="2"/>
+            <line x1="10" y1="70" x2="40" y2="70" stroke="#2c3e50" stroke-width="2"/>
+            <line x1="75" y1="55" x2="75" y2="85" stroke="#2c3e50" stroke-width="2"/>
+            <line x1="60" y1="70" x2="90" y2="70" stroke="#2c3e50" stroke-width="2"/>
+            <rect x="30" y="45" width="35" height="25" stroke="#2c3e50" stroke-width="3" fill="#ecf0f1" rx="2"/>
+            <rect x="30" y="25" width="35" height="25" stroke="#2c3e50" stroke-width="3" fill="#ecf0f1" rx="2"/>
+            <rect x="25" y="45" width="8" height="15" stroke="#2c3e50" stroke-width="2" fill="#bdc3c7" rx="1"/>
+            <rect x="67" y="45" width="8" height="15" stroke="#2c3e50" stroke-width="2" fill="#bdc3c7" rx="1"/>
+            <line x1="32" y1="25" x2="32" y2="15" stroke="#2c3e50" stroke-width="3"/>
+            <line x1="63" y1="25" x2="63" y2="15" stroke="#2c3e50" stroke-width="3"/>
+            <circle cx="32" cy="15" r="3" fill="#e74c3c"/>
+            <circle cx="63" cy="15" r="3" fill="#e74c3c"/>
+            <rect x="35" y="80" width="25" height="5" stroke="#2c3e50" stroke-width="2" fill="#95a5a6" rx="1"/>
+            <line x1="40" y1="70" x2="60" y2="70" stroke="#2c3e50" stroke-width="2"/>
+            <line x1="47" y1="70" x2="47" y2="80" stroke="#2c3e50" stroke-width="2"/>
+        </svg>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <h1>Welcome</h1>
+            <p>Experience accessibility and innovation coming together. Our mission is to create inclusive spaces and solutions for everyone.</p>
+            <div class="button-group">
+                <a href="#" class="button">Learn More</a>
+                <a href="https://www.amazon.com/A-View-from-a-Seat/dp/B0CYQZN68J/ref=sr_1_1?crid=3OQQ8MNU3ZFHH&dib=eyJ2IjoiMSJ9.tGGLffzyrxF_GrB24cD_rw6yELxd6wtozjYG-FMuzszW1Y-ZoLgL_-vfB9ZafwCtbm0yhrcwZjCQqj47NTJNWyX_Ou4c9wzrlFhGtFLQFu5W-21Tnu3It44R3HsrHCxYtIduiw8X5eyZYOQjpNzQ0Rg3Lhg53WA4-InWhXzAxKQ14waoUXKn5lqrd1PH-eEkM87t7JVUF1whAuMbPnjQbg48wyTuPChx9TO7jX07WSk.s4nhXYZfI5EOelDbQjvmEoUXgwhjCwhjHNPUKnfm0KY&dib_tag=se&keywords=chris+miller+a+view+from+a+seat&qid=1781286747&sprefix=chris+miller+a+view+from+a+sea%2Caps%2C103&sr=8-1" class="button" target="_blank">Buy Now</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const navButtons = document.querySelectorAll('.nav-button');
+        navButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
